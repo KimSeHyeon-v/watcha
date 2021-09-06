@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.kgitbank.watcha.mapper.WatchaMapper">
+
+	<!-- 여러줄 꺼낼 때는 resultType을 이용-->
+  <select id="getMovieList2" resultType="com.kgitbank.watcha.model.Movie">
+    SELECT * FROM movie
+  </select>
+  
+  <!--한 행만 꺼낼 때는 resultMap을 이용 -->
+  <!-- 
+    <select id="getEmployee" resultType="com.mycompany.model.Employee">
+  	SELECT * FROM employees WHERE employee_id=#{id}
+  </select>
+     -->
+  
+  <insert id="add_user_choice">
+  	INSERT INTO user_choice (choice_no, user_no, movie_no)VALUES (user_choice_seq.nextval, 
+  		#{user_no},
+  		#{movie_no})
+  		
+  </insert>
+  
+  <delete id="delete_user_choice">
+  	DELETE FROM user_choice WHERE movie_no = #{movie_no}
+  </delete>
+  
+  <insert id="add_user_evaluate">
+  	INSERT INTO user_evaluate (evaluate_no , user_no, movie_no, movie_star)VALUES (user_evaluate_seq.nextval, 
+  		#{user_no},
+  		#{movie_no},
+  		#{movie_star})
+  		
+  </insert>
+  
+  <insert id="update_user_evaluate">
+  	UPDATE user_evaluate SET movie_star = #{movie_star} WHERE movie_no = #{movie_no}
+  		
+  </insert>
+  
+  <delete id="delete_user_evaluate">
+  	DELETE FROM user_evaluate WHERE movie_no = #{movie_no}
+  </delete>
+  
+  <select id="get_UE_list" resultType="com.kgitbank.watcha.model.User_Evaluate">
+    SELECT * FROM user_evaluate
+  </select>
+  
+  <select id="get_exp_num" resultType="com.kgitbank.watcha.model.Exclusion_number">
+    select user_no, movie_no from user_evaluate 
+	UNION
+	select user_no, movie_no from user_choice 
+  </select>
+
+  
+</mapper>
