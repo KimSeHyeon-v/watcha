@@ -1,4 +1,4 @@
-
+// 파일이름 ajax로 수정.
 const selectIndex = (totalIndex, selectingNumber) => {
     let randomIndexArray = []
     for (i=0; i<selectingNumber; i++) {   //check if there is any duplicate index
